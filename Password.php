@@ -448,7 +448,7 @@ class Text_Password {
      * @access private
      * @param  integer Length of the password
      * @param  string  Character which could be use in the
-     *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
+     *                 unpronounceable password ex : 'ABCDEFG'
      *                 or numeric or alphanumeric.
      * @return string  Returns the password
      */
@@ -483,19 +483,8 @@ class Text_Password {
               * Some characters shouldn't be used
               */
              $chars = trim($chars);
-             $chars = str_replace('+' , '' , $chars);
-             $chars = str_replace('|' , '' , $chars);
-             $chars = str_replace('$' , '' , $chars);
-             $chars = str_replace('^' , '' , $chars);
-             $chars = str_replace('/' , '' , $chars);
-             $chars = str_replace('\\', '' , $chars);
-             $chars = str_replace(',,', ',', $chars);
+             $chars = str_replace(array('+', '|', '$', '^', '/', '\\', ','), '', $chars);
 
-             if ($chars{strlen($chars)-1} == ',') {
-                 $chars = substr($chars, 0, -1);
-             }
-
-             $chars = str_replace(',', '', $chars);
              $_Text_Password_NumberOfPossibleCharacters = strlen($chars);
          }
 
@@ -504,7 +493,7 @@ class Text_Password {
           */
          for ($i = 0; $i < $length; $i++) {
              $num = mt_rand(0, $_Text_Password_NumberOfPossibleCharacters - 1);
-             $password .= substr($chars, $num, 1);
+             $password .= $chars{$num};
          }
 
          /**
