@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "package.dtd">
+<package version="1.0">
+  <name>Text_Password</name>
+  <summary>Creating password with PHP.</summary>
+  <description>
+  </description>
+  <license>PHP License</license>
+  <maintainers>
+    <maintainer>
+      <user>mj</user>
+      <role>lead</role>
+      <name>Martin Jansen</name>
+      <email>mj@php.net</email>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>X.X</version>
+    <state>stable</state>
+    <date>2002-XX-XX</date>
+    <notes>
+    </notes>
+    <filelist>
+     <file role="php" baseinstalldir="Text">Password.php</file>
+     <dir name="tests">
+      <file role="test">01-text-password.phpt</file>
+     </dir>
+    </filelist>
+  </release>
+</package>
