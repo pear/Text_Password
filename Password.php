@@ -397,6 +397,13 @@ class Text_Password {
             } elseif ($next < 0) {
                 $next += 255;
             }
+            switch ($next) { // delete white space
+            case 0x09:
+            case 0x20:
+            case 0x0A:
+            case 0x0D:
+                $next++;
+            }
             $tmp .= chr($next);
         }
 
@@ -424,6 +431,13 @@ class Text_Password {
             } elseif ($next < 0) {
                 $next += 255;
             }
+            switch ($next) { // delete white space
+            case 0x09:
+            case 0x20:
+            case 0x0A:
+            case 0x0D:
+                $next++;
+            }
             $tmp .= chr($next);
         }
 
@@ -450,6 +464,13 @@ class Text_Password {
                 $next -= 255;
             } elseif ($next < 0) {
                 $next += 255;
+            }
+            switch ($next) { // delete white space
+            case 0x09:
+            case 0x20:
+            case 0x0A:
+            case 0x0D:
+                $next++;
             }
             $tmp .= chr($next);
         }
