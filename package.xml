@@ -35,7 +35,7 @@ http://pear.php.net/manual/.
     <filelist>
      <file role="php" baseinstalldir="Text">Password.php</file>
      <dir name="tests">
-      <file role="test">01-text-password.php</file>
+      <file role="test">Text_Password_Test.php</file>
      </dir>
     </filelist>
   </release>
