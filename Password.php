@@ -464,17 +464,17 @@ class Text_Password {
          switch($chars) {
 
          case 'alphanumeric':
-             $regex = 'A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|0|1|2|3|4|5|6|7|8|9';
+             $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
              $_Text_Password_NumberOfPossibleCharacters = 62;
              break;
 
          case 'numeric':
-             $regex = '0|1|2|3|4|5|6|7|8|9';
+             $chars = '0123456789';
              $_Text_Password_NumberOfPossibleCharacters = 10;
              break;
 
          case '':
-             $regex = '_|#|@|%|£|&|Á|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|0|1|2|3|4|5|6|7|8|9';
+             $chars = '_#@%£&ÁABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
              $_Text_Password_NumberOfPossibleCharacters = 69;
              break;
 
@@ -495,19 +495,17 @@ class Text_Password {
                  $chars = substr($chars, 0, -1);
              }
 
-             $regex = str_replace(',', '|', $chars);
-             $_Text_Password_NumberOfPossibleCharacters = strlen(str_replace(',', '', $chars));
+             $chars = str_replace(',', '', $chars);
+             $_Text_Password_NumberOfPossibleCharacters = strlen($chars);
          }
 
          /**
           * Generate password
           */
-         do {
-             $chr = chr(mt_rand(0, 255));
-             if (preg_match('/'.$regex.'/US', $chr)) {
-                 $password .= $chr;
-             }
-         } while (strlen($password) < $length);
+         for ($i = 0; $i < $length; $i++) {
+             $num = mt_rand(0, $_Text_Password_NumberOfPossibleCharacters - 1);
+             $password .= substr($chars, $num, 1);
+         }
 
          /**
           * Return password
