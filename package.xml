@@ -13,6 +13,12 @@
       <name>Martin Jansen</name>
       <email>mj@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>olivier</user>
+      <role>lead</role>
+      <name>Olivier Vanhoucke</name>
+      <email>olivier@php.net</email>
+    </maintainer>
   </maintainers>
   <release>
     <version>X.X</version>

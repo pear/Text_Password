@@ -14,6 +14,7 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Martin Jansen <mj@php.net>                                  |
+// |          Olivier Vanhoucke <olivier@php.net>                         |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -22,23 +23,25 @@
 $_Text_Password_nbrCharacters = 0;
 
 /**
-* Create passwords
-*
-* @package Text_Password
-* @author  Martin Jansen
-*/
+ * Create passwords
+ *
+ * @package Text_Password
+ * @author  Martin Jansen <mj@php.net>
+ * @author  Olivier Vanhoucke <olivier@php.net>
+ */
 class Text_Password {
 
     /**
      * Create a single password.
      *
      * @access public
-     * @param  string  Type of password (pronounceable, unpronounceable etc.)
      * @param  integer Length of the password.
+     * @param  string  Type of password (pronounceable, unpronounceable etc.)
      * @param  string  Character which could be use in the unpronounceable password ex : 'A,B,C,D,E,F,G' or numeric or alphanumeric
      * @return string
      */
-    function create($type = 'pronounceable', $length = 10, $chars = '') {
+    function create($length = 10, $type = 'pronounceable', $chars = '') {
+
         mt_srand((double) microtime() * 1000000);
 
         switch ($type) {
@@ -59,18 +62,18 @@ class Text_Password {
      *
      * @access public
      * @param  integer Number of different password
-     * @param  string  Type of password (pronounceable, unpronounceable etc.)
      * @param  integer Length of the password
+     * @param  string  Type of password (pronounceable, unpronounceable etc.)
      * @param  string  Character which could be use in the unpronounceable password ex : 'A,B,C,D,E,F,G' or numeric or alphanumeric
      * @return array   Array containing the passwords
      */
-    function createMultiple($number, $type = 'pronounceable', $length = 10, $chars = '') {
+    function createMultiple($number, $length = 10, $type = 'pronounceable', $chars = '') {
 
         $passwords = array();
 
         while ($number > 0) {
             while (true) {
-                $password = Text_Password::create($type, $length, $chars);
+                $password = Text_Password::create($length, $type, $chars);
                 if (!in_array($password, $passwords)) {
                     $passwords[] = $password;
                     break;
@@ -107,6 +110,36 @@ class Text_Password {
         case 'increment_char3':
             return Text_Password::_incrementLoginChar3($login, $cpt);
         }
+    }
+
+    /**
+     * Create multiple, different passwords from an array of login
+     *
+     * Method to create a list of different password from login
+     *
+     * @access public
+     * @param  array   Login
+     * @param  string  Type
+     * @param  integer ?
+     * @return array   Array containing the passwords
+     */
+    function createMultipleFromLogin($login, $type, $cpt = 0) {
+
+        $passwords = array();
+        $number    = count($login);
+        $save      = $number;
+
+        while ($number > 0) {
+            while (true) {
+                $password = Text_Password::createFromLogin($login[$save - $number], $type, $cpt);
+                if (!in_array($password, $passwords)) {
+                    $passwords[] = $password;
+                    break;
+                }
+            }
+            $number--;
+        }
+        return $passwords;
     }
 
     /**
