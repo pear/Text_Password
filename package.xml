@@ -33,7 +33,7 @@ This is the initial release.
     <filelist>
      <file role="php" baseinstalldir="Text">Password.php</file>
      <dir name="tests">
-      <file role="test">01-text-password.phpt</file>
+      <file role="test">01-text-password.php</file>
      </dir>
     </filelist>
   </release>
