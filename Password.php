@@ -199,6 +199,7 @@ class Text_Password {
         }
 
         // No character must occur more than two times
+        $count = array();
         $chars = preg_split("//", $password);
         foreach ($chars as $char) {
             if (empty($char)) {
@@ -561,8 +562,8 @@ class Text_Password {
              break;
 
          case '':
-             $chars = '_#@%£&ÁABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-             $_Text_Password_NumberOfPossibleCharacters = 69;
+             $chars = '_#@%&ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+             $_Text_Password_NumberOfPossibleCharacters = 67;
              break;
 
          default:
