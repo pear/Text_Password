@@ -21,16 +21,15 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>X.X</version>
+    <version>1.0</version>
     <state>stable</state>
-    <date>2002-XX-XX</date>
+    <date>2003-04-XX</date>
     <notes>
     </notes>
     <filelist>
      <file role="php" baseinstalldir="Text">Password.php</file>
      <dir name="tests">
       <file role="test">01-text-password.phpt</file>
-      <file role="test">02-html-password.phpt</file>
      </dir>
     </filelist>
   </release>
