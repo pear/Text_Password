@@ -20,7 +20,10 @@
 // $Id$
 //
 
-$_Text_Password_nbrCharacters = 0;
+/**
+ * Number of possible characters in the password
+ */
+ $_Text_Password_NumberOfPossibleCharacters = 0;
 
 /**
  * Create passwords
@@ -92,23 +95,41 @@ class Text_Password {
      * @access public
      * @param  string  Login
      * @param  string  Type
-     * @param  integer ?
+     * @param  integer Key
      * @return string
      */
-    function createFromLogin($login, $type, $cpt = 0) {
+    function createFromLogin($login, $type, $key = 0) {
 
         switch ($type) {
         case 'reverse':
-            return Text_Password::_reverseLogin($login);
+            return strrev($login);
 
-        case 'increment_char':
-            return Text_Password::_incrementLoginChar($login, $cpt);
+        case 'shuffle':
+            return Text_Password::_shuffle($login);
 
-        case 'increment_char2':
-            return Text_Password::_incrementLoginChar2($login, $cpt);
+        case 'xor':
+            return Text_Password::_xor($login, $key);
 
-        case 'increment_char3':
-            return Text_Password::_incrementLoginChar3($login, $cpt);
+        case 'rot13':
+            return str_rot13($login);
+
+        case 'rotx':
+            return Text_Password::_rotx($login, $key);
+
+        case 'rotx++':
+            return Text_Password::_rotxpp($login, $key);
+
+        case 'rotx--':
+            return Text_Password::_rotxmm($login, $key);
+
+        case 'ascii_rotx':
+            return Text_Password::_asciiRotx($login, $key);
+
+        case 'ascii_rotx++':
+            return Text_Password::_asciiRotxpp($login, $key);
+
+        case 'ascii_rotx--':
+            return Text_Password::_asciiRotxmm($login, $key);
         }
     }
 
@@ -120,10 +141,10 @@ class Text_Password {
      * @access public
      * @param  array   Login
      * @param  string  Type
-     * @param  integer ?
+     * @param  integer Key
      * @return array   Array containing the passwords
      */
-    function createMultipleFromLogin($login, $type, $cpt = 0) {
+    function createMultipleFromLogin($login, $type, $key = 0) {
 
         $passwords = array();
         $number    = count($login);
@@ -131,7 +152,7 @@ class Text_Password {
 
         while ($number > 0) {
             while (true) {
-                $password = Text_Password::createFromLogin($login[$save - $number], $type, $cpt);
+                $password = Text_Password::createFromLogin($login[$save - $number], $type, $key);
                 if (!in_array($password, $passwords)) {
                     $passwords[] = $password;
                     break;
@@ -145,19 +166,208 @@ class Text_Password {
     /**
      * Create password from login
      *
-     * Method to create a password which is the reverse of the login
+     * Method to create a password from a login
      *
      * @access private
      * @param  string  Login
+     * @param  integer Key
      * @return string
      */
-    function _reverseLogin($login) {
+    function _xor($login, $key) {
 
-        for ($i=0; $i < strlen($login); $i++) {
-            $tmp[] = $login{$i};
+        $tmp = '';
+
+        for ($i = 0; $i < strlen($login); $i++) {
+            $next = ord($login{$i}) ^ $key;
+            if ($next > 255) {
+                $next -= 255;
+            } elseif ($next < 0) {
+                $next += 255;
+            }
+            $tmp .= chr($next);
         }
 
-        return implode(array_reverse($tmp), '');
+        return $tmp;
+    }
+
+    /**
+     * Create password from login
+     *
+     * Method to create a password from a login
+     * lowercase only
+     *
+     * @access private
+     * @param  string  Login
+     * @param  integer Key
+     * @return string
+     */
+    function _rotx($login, $key) {
+
+        $tmp = '';
+        $login = strtolower($login);
+
+        for ($i = 0; $i < strlen($login); $i++) {
+            if ((ord($login{$i}) >= 97) && (ord($login{$i}) <= 122)) { // 65, 90 for uppercase
+                $next = ord($login{$i}) + $key;
+                if ($next > 122) {
+                    $next -= 26;
+                } elseif ($next < 97) {
+                    $next += 26;
+                }
+                $tmp .= chr($next);
+            } else {
+                $tmp .= $login{$i};
+            }
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * Create password from login
+     *
+     * Method to create a password from a login
+     * lowercase only
+     *
+     * @access private
+     * @param  string  Login
+     * @param  integer Key
+     * @return string
+     */
+    function _rotxpp($login, $key) {
+        
+        $tmp = '';
+        $login = strtolower($login);
+
+        for ($i = 0; $i < strlen($login); $i++, $key++) {
+            if ((ord($login{$i}) >= 97) && (ord($login{$i}) <= 122)) { // 65, 90 for uppercase
+                $next = ord($login{$i}) + $key;
+                if ($next > 122) {
+                    $next -= 26;
+                } elseif ($next < 97) {
+                    $next += 26;
+                }
+                $tmp .= chr($next);
+            } else {
+                $tmp .= $login{$i};
+            }
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * Create password from login
+     *
+     * Method to create a password from a login
+     * lowercase only
+     *
+     * @access private
+     * @param  string  Login
+     * @param  integer Key
+     * @return string
+     */
+    function _rotxmm($login, $key) {
+        
+        $tmp = '';
+        $login = strtolower($login);
+
+        for ($i = 0; $i < strlen($login); $i++, $key--) {
+            if ((ord($login{$i}) >= 97) && (ord($login{$i}) <= 122)) { // 65, 90 for uppercase
+                $next = ord($login{$i}) + $key;
+                if ($next > 122) {
+                    $next -= 26;
+                } elseif ($next < 97) {
+                    $next += 26;
+                }
+                $tmp .= chr($next);
+            } else {
+                $tmp .= $login{$i};
+            }
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * Create password from login
+     *
+     * Method to create a password from a login
+     *
+     * @access private
+     * @param  string  Login
+     * @param  integer Key
+     * @return string
+     */
+    function _asciiRotx($login, $key) {
+
+        $tmp = '';
+
+        for ($i = 0; $i < strlen($login); $i++) {
+            $next = ord($login{$i}) + $key;
+            if ($next > 255) {
+                $next -= 255;
+            } elseif ($next < 0) {
+                $next += 255;
+            }
+            $tmp .= chr($next);
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * Create password from login
+     *
+     * Method to create a password from a login
+     *
+     * @access private
+     * @param  string  Login
+     * @param  integer Key
+     * @return string
+     */
+    function _asciiRotxpp($login, $key) {
+        
+        $tmp = '';
+
+        for ($i = 0; $i < strlen($login); $i++, $key++) {
+            $next = ord($login{$i}) + $key;
+            if ($next > 255) {
+                $next -= 255;
+            } elseif ($next < 0) {
+                $next += 255;
+            }
+            $tmp .= chr($next);
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * Create password from login
+     *
+     * Method to create a password from a login
+     *
+     * @access private
+     * @param  string  Login
+     * @param  integer Key
+     * @return string
+     */
+    function _asciiRotxmm($login, $key) {
+        
+        $tmp = '';
+
+        for ($i = 0; $i < strlen($login); $i++, $key--) {
+            $next = ord($login{$i}) + $key;
+            if ($next > 255) {
+                $next -= 255;
+            } elseif ($next < 0) {
+                $next += 255;
+            }
+            $tmp .= chr($next);
+        }
+
+        return $tmp;
     }
 
     /**
@@ -169,46 +379,11 @@ class Text_Password {
      * @param  string  Login
      * @return string
      */
-    function _incrementLoginChar($login, $cpt) {
+    function _shuffle($login) {
 
-        for ($i=0; $i < strlen($login); $i++) {
-            $tmp[] = chr(ord($login{$i}) + $cpt);
-        }
+        $tmp = array();
 
-        return implode($tmp, '');
-    }
-
-    /**
-     * Create password from login
-     *
-     * Method to create a password from a login
-     *
-     * @access private
-     * @param  string  Login
-     * @return string
-     */
-    function _incrementLoginChar2($login, $cpt) {
-
-        for ($i=0; $i < strlen($login); $i++) {
-            $tmp[] = chr(ord($login{$i}) + $cpt);
-            $cpt++;
-        }
-
-        return implode($tmp, '');
-    }
-
-    /**
-     * Create password from login
-     *
-     * Method to create a password from a login
-     *
-     * @access private
-     * @param  string  Login
-     * @return string
-     */
-    function _incrementLoginChar3($login, $cpt) {
-
-        for ($i=0; $i < strlen($login); $i++) {
+        for ($i = 0; $i < strlen($login); $i++) {
             $tmp[] = $login{$i};
         }
 
@@ -229,7 +404,7 @@ class Text_Password {
      */
     function _createPronounceable($length) {
 
-        global $_Text_Password_nbrCharacters;
+        global $_Text_Password_NumberOfPossibleCharacters;
 
         $retVal = '';
 
@@ -249,13 +424,10 @@ class Text_Password {
                    'ch', 'ph', 'st', 'sl', 'cl'
                    );
 
-        /**
-         * XXX: Make this static!
-         */
-        $v_count = count($v);
-        $c_count = count($c);
+        $v_count = 12;
+        $c_count = 29;
 
-        $_Text_Password_nbrCharacters = $v_count + $c_count;
+        $_Text_Password_NumberOfPossibleCharacters = $v_count + $c_count;
 
         for ($i = 0; $i < $length; $i++) {
             $retVal .= $c[mt_rand(0, $c_count-1)] . $v[mt_rand(0, $v_count-1)];
@@ -274,9 +446,9 @@ class Text_Password {
      * @param  string  Character which could be use in the password ex : 'A,B,C,D,E,F,G' or numeric or alphanumeric
      * @return string  Returns the password
      */
-    function _createUnpronounceable($length, $chars) {  // en cours
+    function _createUnpronounceable($length, $chars) {
 
-        global $_Text_Password_nbrCharacters;
+        global $_Text_Password_NumberOfPossibleCharacters;
 
         $password = '';
 
@@ -287,17 +459,17 @@ class Text_Password {
 
          case 'alphanumeric':
              $regex = 'A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|0|1|2|3|4|5|6|7|8|9';
-             $_Text_Password_nbrCharacters = 62;
+             $_Text_Password_NumberOfPossibleCharacters = 62;
              break;
 
          case 'numeric':
              $regex = '0|1|2|3|4|5|6|7|8|9';
-             $_Text_Password_nbrCharacters = 10;
+             $_Text_Password_NumberOfPossibleCharacters = 10;
              break;
 
          case '':
              $regex = '_|#|@|%|£|&|ç|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|0|1|2|3|4|5|6|7|8|9';
-             $_Text_Password_nbrCharacters = 69;
+             $_Text_Password_NumberOfPossibleCharacters = 69;
              break;
 
          default:
@@ -318,7 +490,7 @@ class Text_Password {
              }
 
              $regex = str_replace(',', '|', $chars);
-             $_Text_Password_nbrCharacters = strlen(str_replace(',', '', $chars));
+             $_Text_Password_NumberOfPossibleCharacters = strlen(str_replace(',', '', $chars));
          }
 
          /**

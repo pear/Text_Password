@@ -5,9 +5,9 @@ require_once '../Password.php';
 
 
 function timeToBruteForce ($password, $nbr = 0, $cmbPerSeconde = 4000) {
-  global $_Text_Password_nbrCharacters;
+  global $_Text_Password_NumberOfPossibleCharacters;
 
-  $nbr = ($nbr == 0) ? $_Text_Password_nbrCharacters : $nbr;
+  $nbr = ($nbr == 0) ? $_Text_Password_NumberOfPossibleCharacters : $nbr;
   $cmb = pow($nbr, strlen($password));
   $time_max = $cmb / $cmbPerSeconde;
   $time_min = ($cmb / $cmbPerSeconde) / 2;
@@ -42,14 +42,32 @@ echo Text_Password::create(8, 'unpronounceable', 'alphanumeric') . "\n\n";
 echo "\nCreating password from login 'olivier', type is 'reverse':\t";
 echo Text_Password::createFromLogin('olivier', 'reverse') . "\n\n";
 
-echo "\nCreating password from login 'olivier', type is 'increment_char':\t";
-echo Text_Password::createFromLogin('olivier', 'increment_char', 1) . "\n\n";
+echo "\nCreating password from login 'olivier', type is 'rot13':\t";
+echo Text_Password::createFromLogin('olivier', 'rot13') . "\n\n";
 
-echo "\nCreating password from login 'olivier', type is 'increment_char2':\t";
-echo Text_Password::createFromLogin('olivier', 'increment_char2', 1) . "\n\n";
+echo "\nCreating password from login 'olivier', type is 'rotx':\t";
+echo Text_Password::createFromLogin('olivier', 'rotx', 13) . "\n\n";
 
-echo "\nCreating password from login 'olivier', type is 'increment_char3':\t";
-echo Text_Password::createFromLogin('olivier', 'increment_char3', 1) . "\n\n";
+echo "\nCreating password from login 'olivier', type is 'rotx++':\t";
+echo Text_Password::createFromLogin('olivier', 'rotx++', 13) . "\n\n";
+
+echo "\nCreating password from login 'olivier', type is 'rotx--':\t";
+echo Text_Password::createFromLogin('olivier', 'rotx--', 13) . "\n\n";
+
+echo "\nCreating password from login 'olivier', type is 'xor':\t";
+echo Text_Password::createFromLogin('olivier', 'xor', 5) . "\n\n";
+
+echo "\nCreating password from login 'olivier', type is 'ascii_rotx':\t";
+echo Text_Password::createFromLogin('olivier', 'ascii_rotx', 5) . "\n\n";
+
+echo "\nCreating password from login 'olivier', type is 'ascii_rotx++':\t";
+echo Text_Password::createFromLogin('olivier', 'ascii_rotx++', 5) . "\n\n";
+
+echo "\nCreating password from login 'olivier', type is 'ascii_rotx--':\t";
+echo Text_Password::createFromLogin('olivier', 'ascii_rotx--', 5) . "\n\n";
+
+echo "\nCreating password from login 'olivier', type is 'shuffle':\t";
+echo Text_Password::createFromLogin('olivier', 'shuffle', 1) . "\n\n";
 
 echo "\nCreating password from an array of login 'olivier', 'martin', 'vanhoucke', 'jansen', type is 'reverse':\n";
 $logins = array('olivier', 'martin', 'vanhoucke', 'jansen');
