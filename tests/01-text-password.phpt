@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 
-require_once '../Password.php';
+require_once 'Text/Password.php';
 
 
 function timeToBruteForce ($password, $nbr = 0, $cmbPerSeconde = 4000) {
