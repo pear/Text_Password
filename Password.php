@@ -42,7 +42,7 @@ class Text_Password {
      * @param  string  Type of password (pronounceable, unpronounceable)
      * @param  string  Character which could be use in the
      *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
-     *                 or numeric or alphanumeric.
+     *                 or numeric, alphabetical or alphanumeric.
      * @return string  Returns the generated password.
      */
     function create($length = 10, $type = 'pronounceable', $chars = '')
@@ -71,7 +71,7 @@ class Text_Password {
      * @param  string  Type of password (pronounceable, unpronounceable)
      * @param  string  Character which could be use in the
      *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
-     *                 or numeric or alphanumeric.
+     *                 or numeric, alphabetical or alphanumeric.
      * @return array   Array containing the passwords
      */
     function createMultiple($number, $length = 10, $type = 'pronounceable', $chars = '')
@@ -449,7 +449,7 @@ class Text_Password {
      * @param  integer Length of the password
      * @param  string  Character which could be use in the
      *                 unpronounceable password ex : 'ABCDEFG'
-     *                 or numeric or alphanumeric.
+     *                 or numeric, alphabetical or alphanumeric.
      * @return string  Returns the password
      */
     function _createUnpronounceable($length, $chars)
@@ -466,6 +466,11 @@ class Text_Password {
          case 'alphanumeric':
              $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
              $_Text_Password_NumberOfPossibleCharacters = 62;
+             break;
+
+         case 'alphabetical':
+             $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+             $_Text_Password_NumberOfPossibleCharacters = 52;
              break;
 
          case 'numeric':
