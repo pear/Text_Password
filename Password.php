@@ -45,8 +45,8 @@ class Text_Password {
      *                 or numeric or alphanumeric.
      * @return string  Returns the generated password.
      */
-    function create($length = 10, $type = 'pronounceable', $chars = '') {
-
+    function create($length = 10, $type = 'pronounceable', $chars = '')
+    {
         mt_srand((double) microtime() * 1000000);
 
         switch ($type) {
@@ -74,8 +74,8 @@ class Text_Password {
      *                 or numeric or alphanumeric.
      * @return array   Array containing the passwords
      */
-    function createMultiple($number, $length = 10, $type = 'pronounceable', $chars = '') {
-
+    function createMultiple($number, $length = 10, $type = 'pronounceable', $chars = '')
+    {
         $passwords = array();
 
         while ($number > 0) {
@@ -102,8 +102,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function createFromLogin($login, $type, $key = 0) {
-
+    function createFromLogin($login, $type, $key = 0)
+    {
         switch ($type) {
         case 'reverse':
             return strrev($login);
@@ -148,8 +148,8 @@ class Text_Password {
      * @param  integer Key
      * @return array   Array containing the passwords
      */
-    function createMultipleFromLogin($login, $type, $key = 0) {
-
+    function createMultipleFromLogin($login, $type, $key = 0)
+    {
         $passwords = array();
         $number    = count($login);
         $save      = $number;
@@ -177,8 +177,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _xor($login, $key) {
-
+    function _xor($login, $key)
+    {
         $tmp = '';
 
         for ($i = 0; $i < strlen($login); $i++) {
@@ -205,8 +205,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _rotx($login, $key) {
-
+    function _rotx($login, $key)
+    {
         $tmp = '';
         $login = strtolower($login);
 
@@ -238,8 +238,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _rotxpp($login, $key) {
-        
+    function _rotxpp($login, $key)
+    {
         $tmp = '';
         $login = strtolower($login);
 
@@ -271,8 +271,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _rotxmm($login, $key) {
-        
+    function _rotxmm($login, $key)
+    {
         $tmp = '';
         $login = strtolower($login);
 
@@ -303,8 +303,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _asciiRotx($login, $key) {
-
+    function _asciiRotx($login, $key)
+    {
         $tmp = '';
 
         for ($i = 0; $i < strlen($login); $i++) {
@@ -330,8 +330,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _asciiRotxpp($login, $key) {
-        
+    function _asciiRotxpp($login, $key)
+    {
         $tmp = '';
 
         for ($i = 0; $i < strlen($login); $i++, $key++) {
@@ -357,8 +357,8 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _asciiRotxmm($login, $key) {
-        
+    function _asciiRotxmm($login, $key)
+    {
         $tmp = '';
 
         for ($i = 0; $i < strlen($login); $i++, $key--) {
@@ -383,8 +383,8 @@ class Text_Password {
      * @param  string  Login
      * @return string
      */
-    function _shuffle($login) {
-
+    function _shuffle($login)
+    {
         $tmp = array();
 
         for ($i = 0; $i < strlen($login); $i++) {
@@ -406,10 +406,10 @@ class Text_Password {
      * @param  integer Length of the password
      * @return string  Returns the password
      */
-    function _createPronounceable($length) {
+    function _createPronounceable($length)
+    {
 
         global $_Text_Password_NumberOfPossibleCharacters;
-
         $retVal = '';
 
         /**
@@ -452,8 +452,8 @@ class Text_Password {
      *                 or numeric or alphanumeric.
      * @return string  Returns the password
      */
-    function _createUnpronounceable($length, $chars) {
-
+    function _createUnpronounceable($length, $chars)
+    {
         global $_Text_Password_NumberOfPossibleCharacters;
 
         $password = '';
