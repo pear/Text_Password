@@ -4,6 +4,9 @@
   <name>Text_Password</name>
   <summary>Creating passwords with PHP.</summary>
   <description>
+Text_Password allows one to create pronounceable and unpronounceable
+passwords. The full functional range is explained in the manual at
+http://pear.php.net/manual/.
   </description>
   <license>PHP License</license>
   <maintainers>
