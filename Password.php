@@ -23,7 +23,7 @@
 /**
  * Number of possible characters in the password
  */
- $_Text_Password_NumberOfPossibleCharacters = 0;
+$_Text_Password_NumberOfPossibleCharacters = 0;
 
 /**
  * Create passwords
@@ -39,9 +39,11 @@ class Text_Password {
      *
      * @access public
      * @param  integer Length of the password.
-     * @param  string  Type of password (pronounceable, unpronounceable etc.)
-     * @param  string  Character which could be use in the unpronounceable password ex : 'A,B,C,D,E,F,G' or numeric or alphanumeric
-     * @return string
+     * @param  string  Type of password (pronounceable, unpronounceable)
+     * @param  string  Character which could be use in the
+     *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
+     *                 or numeric or alphanumeric.
+     * @return string  Returns the generated password.
      */
     function create($length = 10, $type = 'pronounceable', $chars = '') {
 
@@ -51,7 +53,7 @@ class Text_Password {
         case 'unpronounceable' :
             return Text_Password::_createUnpronounceable($length, $chars);
 
-        case 'pronounceable'   :
+        case 'pronounceable' :
         default :
             return Text_Password::_createPronounceable($length);
         }
@@ -66,8 +68,10 @@ class Text_Password {
      * @access public
      * @param  integer Number of different password
      * @param  integer Length of the password
-     * @param  string  Type of password (pronounceable, unpronounceable etc.)
-     * @param  string  Character which could be use in the unpronounceable password ex : 'A,B,C,D,E,F,G' or numeric or alphanumeric
+     * @param  string  Type of password (pronounceable, unpronounceable)
+     * @param  string  Character which could be use in the
+     *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
+     *                 or numeric or alphanumeric.
      * @return array   Array containing the passwords
      */
     function createMultiple($number, $length = 10, $type = 'pronounceable', $chars = '') {
@@ -164,7 +168,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      *
@@ -191,7 +195,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      * lowercase only
@@ -224,7 +228,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      * lowercase only
@@ -257,7 +261,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      * lowercase only
@@ -290,7 +294,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      *
@@ -317,7 +321,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      *
@@ -344,7 +348,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      *
@@ -371,7 +375,7 @@ class Text_Password {
     }
 
     /**
-     * Create password from login
+     * Helper method to create password
      *
      * Method to create a password from a login
      *
@@ -443,7 +447,9 @@ class Text_Password {
      *
      * @access private
      * @param  integer Length of the password
-     * @param  string  Character which could be use in the password ex : 'A,B,C,D,E,F,G' or numeric or alphanumeric
+     * @param  string  Character which could be use in the
+     *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
+     *                 or numeric or alphanumeric.
      * @return string  Returns the password
      */
     function _createUnpronounceable($length, $chars) {
@@ -474,7 +480,7 @@ class Text_Password {
 
          default:
              /**
-              * Some characters couldn't be used
+              * Some characters shouldn't be used
               */
              $chars = trim($chars);
              $chars = str_replace('+' , '' , $chars);
@@ -496,7 +502,6 @@ class Text_Password {
          /**
           * Generate password
           */
-
          do {
              $chr = chr(mt_rand(0, 255));
              if (preg_match('/'.$regex.'/US', $chr)) {
