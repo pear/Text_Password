@@ -134,6 +134,21 @@ class Text_Password_Test extends PHPUnit_TestCase {
         $this->assertEquals("uyn", Text_Password::createFromLogin("joe", "ascii_rotx--", 11));
     }
 
+    /**
+     * Unit test for bug #2605
+     *
+     * Actually this method does not implement a real unit test, but 
+     * instead it is there to make sure that no warning is produced
+     * by PHP.
+     *
+     * @link http://pear.php.net/bugs/bug.php?id=2605
+     */
+    function testBugReport2605()
+    {
+        $password = Text_Password::create(7, 'unpronounceable', '1,3,a,Q,~,[,f');
+        $this->assertTrue(strlen($password) == 7);
+    }
+
     // }}}
     // {{{ private helper methods
 
