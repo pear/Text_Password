@@ -30,6 +30,7 @@ http://pear.php.net/manual/.
     <notes>
 * Improved performance
 * Added alphabetical character set for creating passwords (by Aaron Wormus)
+* Added a method to determine if a password is well chosen
     </notes>
     <filelist>
      <file role="php" baseinstalldir="Text">Password.php</file>
