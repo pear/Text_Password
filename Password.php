@@ -47,8 +47,6 @@ class Text_Password {
      */
     function create($length = 10, $type = 'pronounceable', $chars = '')
     {
-        mt_srand((double) microtime() * 1000000);
-
         switch ($type) {
         case 'unpronounceable' :
             return Text_Password::_createUnpronounceable($length, $chars);
