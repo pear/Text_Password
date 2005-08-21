@@ -24,13 +24,12 @@ http://pear.php.net/manual/.
     </maintainer>
   </maintainers>
   <release>
-    <version>1.1</version>
+    <version>1.1.0</version>
     <state>stable</state>
-    <date>2005-XX-XX</date>
+    <date>2005-08-21</date>
     <notes>
 * Improved performance
 * Added alphabetical character set for creating passwords (by Aaron Wormus)
-* Added a method to determine if a password is well chosen
 * Added unit tests
 * Fixed bug #2605
 * Fixed problematic seeding of the randon number generator (hint by
