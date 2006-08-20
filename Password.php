@@ -48,7 +48,7 @@ class Text_Password {
      * @param  integer Length of the password.
      * @param  string  Type of password (pronounceable, unpronounceable)
      * @param  string  Character which could be use in the
-     *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
+     *                 unpronounceable password ex : 'ABCDEFG'
      *                 or numeric, alphabetical or alphanumeric.
      * @return string  Returns the generated password.
      */
