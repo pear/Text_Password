@@ -14,9 +14,7 @@
 // $Id$
 //
 
-require_once "PHPUnit.php";
-require_once "PHPUnit/TestCase.php";
-require_once "PHPUnit/TestSuite.php";
+require_once "PHPUnit/Framework.php";
 require_once "Text/Password.php";
 
 /**
@@ -26,7 +24,7 @@ require_once "Text/Password.php";
  * @extends PHPUnit_TestCase
  * @version $Id$
  */
-class Text_Password_Test extends PHPUnit_TestCase {
+class Text_Password_Test extends PHPUnit_Framework_TestCase {
 
     function testCreate()
     {
@@ -178,7 +176,3 @@ class Text_Password_Test extends PHPUnit_TestCase {
 
     // }}}
 }
-
-$suite = new PHPUnit_TestSuite('Text_Password_Test');
-$result = PHPUnit::run($suite);
-echo $result->toString();
