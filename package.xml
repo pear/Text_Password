@@ -24,16 +24,11 @@ http://pear.php.net/manual/.
     </maintainer>
   </maintainers>
   <release>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <state>stable</state>
-    <date>2005-08-21</date>
+    <date>2008-11-30</date>
     <notes>
-* Improved performance
-* Added alphabetical character set for creating passwords (by Aaron Wormus)
-* Added unit tests
-* Fixed bug #2605
-* Fixed problematic seeding of the randon number generator (hint by
-  Stefan Esser)
+* Fixed bug #12220: potential problems with global var use (Patch by Christian Weiske)
     </notes>
     <filelist>
      <file role="php" baseinstalldir="Text">Password.php</file>
