@@ -1,43 +1,59 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0">
-  <name>Text_Password</name>
-  <summary>Creating passwords with PHP.</summary>
-  <description>
-Text_Password allows one to create pronounceable and unpronounceable
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Password</name>
+ <channel>pear.php.net</channel>
+ <summary>Creating passwords with PHP.</summary>
+ <description>Text_Password allows one to create pronounceable and unpronounceable
 passwords. The full functional range is explained in the manual at
 http://pear.php.net/manual/.
-  </description>
-  <license>PHP License</license>
-  <maintainers>
-    <maintainer>
-      <user>mj</user>
-      <role>lead</role>
-      <name>Martin Jansen</name>
-      <email>mj@php.net</email>
-    </maintainer>
-    <maintainer>
-      <user>olivier</user>
-      <role>lead</role>
-      <name>Olivier Vanhoucke</name>
-      <email>olivier@php.net</email>
-    </maintainer>
-  </maintainers>
-  <release>
-    <version>1.1.1</version>
-    <state>stable</state>
-    <date>2008-11-30</date>
-    <notes>
-* Fixed bug #12220: potential problems with global var use (Patch by Christian Weiske)
-    </notes>
-    <filelist>
-     <file role="php" baseinstalldir="Text">Password.php</file>
-     <dir name="tests">
-      <file role="test">Text_Password_Test.php</file>
-     </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-    </deps>
-  </release>
+  
+ </description>
+ <lead>
+  <name>Martin Jansen</name>
+  <user>mj</user>
+  <email>mj@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Olivier Vanhoucke</name>
+  <user>olivier</user>
+  <email>olivier@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-11-30</date>
+ <time>14:39:10</time>
+ <version>
+  <release>1.1.1</release>
+  <api>1.1.1</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>* Fixed bug #12220: potential problems with global var use (Patch by Christian Weiske)
+    
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="tests">
+    <file name="Text_Password_Test.php" role="test" />
+   </dir> <!-- //tests -->
+   <file baseinstalldir="Text" name="Password.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
 </package>
