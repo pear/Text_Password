@@ -70,16 +70,6 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
         $this->assertRegExp("/^[a-z]{8}$/i", $password);
     }
 
-    function testTimeToBruteForce()
-    {
-        $password = Text_Password::create(5, 'unpronounceable');
-        $result = $this->_TimeToBruteForce($pass);
-
-        $this->assertTrue($result['combination'] == 1);
-        $this->assertTrue($result['max'] == 0.00025);
-        $this->assertTrue($result['min'] == 0.000125);
-    }
-
     // {{{ Test cases for creating passwords based on a given login string
 
     function testCreateFromLoginReverse()
@@ -158,20 +148,6 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
         foreach ($passwords as $password) {
             $this->assertTrue(strlen($password) == $length);
         }        
-    }
-
-    function _timeToBruteForce($password, $nbr = 0, $cmbPerSeconde = 4000)
-    {
-        global $_Text_Password_NumberOfPossibleCharacters;
-
-        $nbr = ($nbr == 0) ? $_Text_Password_NumberOfPossibleCharacters : $nbr;
-        $cmb = pow($nbr, strlen($password));
-        $time_max = $cmb / $cmbPerSeconde;
-        $time_min = ($cmb / $cmbPerSeconde) / 2;
-
-        return array("combination" => $cmb,
-                     "max"         => $time_max,
-                     "min"         => $time_min);
     }
 
     // }}}
