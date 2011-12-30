@@ -14,7 +14,7 @@
 // $Id$
 //
 
-require_once "PHPUnit/Framework.php";
+require_once "PHPUnit/Framework/TestCase.php";
 require_once "Text/Password.php";
 
 /**
@@ -152,7 +152,7 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
 
     function _testCreateMultiple($passwords, $count, $length)
     {
-        $this->assertType("array", $passwords);
+        $this->assertInternalType("array", $passwords);
         $this->assertTrue(count($passwords) == $count);
 
         foreach ($passwords as $password) {
