@@ -40,9 +40,12 @@ http://pear.php.net/manual/.
  <contents>
   <dir name="/">
    <dir name="tests">
+    <file name="AllTests.php" role="test" />
     <file name="Text_Password_Test.php" role="test" />
    </dir> <!-- //tests -->
-   <file baseinstalldir="Text" name="Password.php" role="php" />
+   <dir name="Text">
+    <file baseinstalldir="Text" name="Password.php" role="php" />
+   </dir> <!-- /Text -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
