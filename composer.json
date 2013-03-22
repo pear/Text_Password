@@ -1,0 +1,18 @@
+{
+	"name"        : "pear/text_password",
+	"description" : "Allows one to create pronounceable and unpronounceable passwords.",
+	"type"        : "library",
+	"keywords"    : [ "password" ],
+	"homepage"    : "https://github.com/pear/Text_Password",
+	"license"     : "PHP-3.01",
+	"authors"     : [
+		{
+			"name"  : "Martin Jansen",
+			"email" : "mj@php.net"
+		},
+		{
+			"name"  : "Olivier Vanhoucke",
+			"email" : "olivier@php.net"
+		}
+	]
+}
