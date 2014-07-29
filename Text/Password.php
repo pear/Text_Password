@@ -484,45 +484,57 @@ class Text_Password {
         /**
          * List of character which could be use in the password
          */
-         switch($chars) {
+        $lower = 'abcdefghijklmnopqrstuvwxyz';
+        $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $decimal = '0123456789';
+        $special = '_#@%&';
 
-         case 'alphanumeric':
-             $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 62;
-             break;
+        switch($chars) {
 
-         case 'alphabetical':
-             $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 52;
-             break;
+        case 'alphanumeric':
+            $chars = array($lower, $upper, $decimal);
+            break;
 
-         case 'numeric':
-             $chars = '0123456789';
-             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 10;
-             break;
+        case 'alphabetical':
+            $chars = array($lower, $upper);
+            break;
 
-         case '':
-             $chars = '_#@%&ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 67;
-             break;
+        case 'numeric':
+            $chars = array($decimal);
+            break;
 
-         default:
-             /**
-              * Some characters shouldn't be used
-              */
-             $chars = trim($chars);
-             $chars = str_replace(array('+', '|', '$', '^', '/', '\\', ','), '', $chars);
+        case '':
+            $chars = array($lower, $upper, $decimal, $special);
+            break;
 
-             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = strlen($chars);
-         }
+        default:
+            /**
+             * Some characters shouldn't be used
+             */
+            $chars = array(trim($chars));
+            $chars = str_replace(array('+', '|', '$', '^', '/', '\\', ','), '', $chars);
+        }
+
+        $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 0;
+        foreach ($chars as $charsItem) {
+            $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] += strlen($charsItem);
+        }
 
          /**
           * Generate password
           */
-         for ($i = 0; $i < $length; $i++) {
-             $num = mt_rand(0, $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] - 1);
-             $password .= $chars{$num};
-         }
+        while (strlen($password) < $length) {
+            foreach ($chars as $k => $v) {
+                $random_char     = $v[rand(0, strlen($v) - 1)];
+                $random_position = rand(0, strlen($password) - 1);
+                $password        = substr($password, 0, $random_position)
+                                   . $random_char
+                                   . substr($password, $random_position);
+            }
+        }
+        if (strlen($password) > $length) {
+            $password = substr($password, 0, $length);
+        }
 
          /**
           * Return password
