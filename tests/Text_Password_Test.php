@@ -25,46 +25,49 @@ require_once "Text/Password.php";
  */
 class Text_Password_Test extends PHPUnit_Framework_TestCase {
 
+    function setUp() {
+        $this->subject = new Text_Password();
+    }
     function testCreate()
     {
-        $password = Text_Password::create();
+        $password = $this->subject->create();
         $this->assertTrue(strlen($password) == 10);
     }
 
     function testCreateWithLength()
     {
-        $password = Text_Password::create(15);
+        $password = $this->subject->create(15);
         $this->assertTrue(strlen($password) == 15);
     }
     
     function testCreateMultiple()
     {
-        $passwords = Text_Password::createMultiple(3);
+        $passwords = $this->subject->createMultiple(3);
         $this->_testCreateMultiple($passwords, 3, 10);
     }
 
     function testCreateMultipleWithLength()
     {
-        $passwords = Text_Password::createMultiple(3, 15);
+        $passwords = $this->subject->createMultiple(3, 15);
         $this->_testCreateMultiple($passwords, 3, 15);        
     }
 
     function testCreateNumericWithLength()
     {
-        $password = Text_Password::create(8, 'unpronounceable', 'numeric');
+        $password = $this->subject->create(8, 'unpronounceable', 'numeric');
 
         $this->assertRegExp("/^[0-9]{8}$/", $password);
     }
 
     function testCreateFromABCWithLength()
     {
-        $password = Text_Password::create(8, 'unpronounceable', 'a,b,c');
+        $password = $this->subject->create(8, 'unpronounceable', 'a,b,c');
         $this->assertRegExp("/^[abc]{8}$/i", $password);
     }
 
     function testCreateAlphabeticWithLength()
     {
-        $password = Text_Password::create(8, 'unpronounceable', 'alphabetic');
+        $password = $this->subject->create(8, 'unpronounceable', 'alphabetic');
 
         $this->assertRegExp("/^[a-z]{8}$/i", $password);
     }
@@ -73,52 +76,52 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
 
     function testCreateFromLoginReverse()
     {
-        $this->assertEquals("eoj", Text_Password::createFromLogin("joe", "reverse"));
+        $this->assertEquals("eoj", $this->subject->createFromLogin("joe", "reverse"));
     }
 
     function testCreateFromLoginShuffle()
     {
-        $this->assertTrue(strlen(Text_Password::createFromLogin("hello world", "shuffle")) == strlen("hello world"));
+        $this->assertTrue(strlen($this->subject->createFromLogin("hello world", "shuffle")) == strlen("hello world"));
     }
 
     function testCreateFromLoginRotX()
     {
-        $this->assertEquals("tyo", Text_Password::createFromLogin("joe", "rotx", 10));
+        $this->assertEquals("tyo", $this->subject->createFromLogin("joe", "rotx", 10));
     }
     
     function testCreateFromLoginRot13()
     {
-        $this->assertEquals("wbr", Text_Password::createFromLogin("joe", "rot13"));
+        $this->assertEquals("wbr", $this->subject->createFromLogin("joe", "rot13"));
     }
 
     function testCreateFromLoginRotXplusplus()
     {
-        $this->assertEquals("syp", Text_Password::createFromLogin("joe", "rotx++", 9));
+        $this->assertEquals("syp", $this->subject->createFromLogin("joe", "rotx++", 9));
     }
 
     function testCreateFromLoginRotXminusminus()
     {
-        $this->assertEquals("swl", Text_Password::createFromLogin("joe", "rotx--", 9));
+        $this->assertEquals("swl", $this->subject->createFromLogin("joe", "rotx--", 9));
     }
 
     function testCreateFromLoginXOR()
     {
-        $this->assertEquals("oj`", Text_Password::createFromLogin("joe", "xor", 5));
+        $this->assertEquals("oj`", $this->subject->createFromLogin("joe", "xor", 5));
     }
 
     function testCreateFromLoginASCIIRotX()
     {
-        $this->assertEquals("otj", Text_Password::createFromLogin("joe", "ascii_rotx", 5));
+        $this->assertEquals("otj", $this->subject->createFromLogin("joe", "ascii_rotx", 5));
     }
 
     function testCreateFromLoginASCIIRotXplusplus()
     {
-        $this->assertEquals("oul", Text_Password::createFromLogin("joe", "ascii_rotx++", 5));
+        $this->assertEquals("oul", $this->subject->createFromLogin("joe", "ascii_rotx++", 5));
     }
 
     function testCreateFromLoginASCIIRotXminusminus()
     {
-        $this->assertEquals("uyn", Text_Password::createFromLogin("joe", "ascii_rotx--", 11));
+        $this->assertEquals("uyn", $this->subject->createFromLogin("joe", "ascii_rotx--", 11));
     }
 
     /**
@@ -132,7 +135,7 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
      */
     function testBugReport2605()
     {
-        $password = Text_Password::create(7, 'unpronounceable', '1,3,a,Q,~,[,f');
+        $password = $this->subject->create(7, 'unpronounceable', '1,3,a,Q,~,[,f');
         $this->assertTrue(strlen($password) == 7);
     }
 
