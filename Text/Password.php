@@ -16,7 +16,7 @@
  * @package    Text_Password
  * @author     Martin Jansen <mj@php.net>
  * @author     Olivier Vanhoucke <olivier@php.net>
- * @copyright  2004-2005 Martin Jansen, Olivier Vanhoucke
+ * @copyright  2004-2016 Martin Jansen, Olivier Vanhoucke, Michael Gauthier
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Text_Password
@@ -34,7 +34,7 @@ $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 0;
  * @package    Text_Password
  * @author     Martin Jansen <mj@php.net>
  * @author     Olivier Vanhoucke <olivier@php.net>
- * @copyright  2004-2005 Martin Jansen, Olivier Vanhoucke
+ * @copyright  2004-2016 Martin Jansen, Olivier Vanhoucke, Michael Gauthier
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Text_Password
@@ -459,7 +459,7 @@ class Text_Password {
         $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = $v_count + $c_count;
 
         for ($i = 0; $i < $length; $i++) {
-            $retVal .= $c[mt_rand(0, $c_count-1)] . $v[mt_rand(0, $v_count-1)];
+            $retVal .= $c[$this->_rand(0, $c_count-1)] . $v[$this->_rand(0, $v_count-1)];
         }
 
         return substr($retVal, 0, $length);
@@ -481,15 +481,13 @@ class Text_Password {
     {
         $password = '';
 
-        /**
-         * List of character which could be use in the password
-         */
+        // Claases of characters which could be use in the password
         $lower = 'abcdefghijklmnopqrstuvwxyz';
         $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $decimal = '0123456789';
         $special = '_#@%&';
 
-        switch($chars) {
+        switch ($chars) {
 
         case 'alphanumeric':
             $chars = array($lower, $upper, $decimal);
@@ -508,9 +506,13 @@ class Text_Password {
             break;
 
         default:
-            /**
-             * Some characters shouldn't be used
-             */
+            // Some characters shouldn't be used; filter them out of the
+            // possible password characters that were passed in. The comma
+            // character was used in the past to separate input characters and
+            // remains in the block list for backwards compatibility. Other
+            // block list characters may no longer be necessary now that
+            // password generation does not use preg functions, but they also
+            // remain for backwards compatibility.
             $chars = array(trim($chars));
             $chars = str_replace(array('+', '|', '$', '^', '/', '\\', ','), '', $chars);
         }
@@ -520,26 +522,78 @@ class Text_Password {
             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] += strlen($charsItem);
         }
 
-         /**
-          * Generate password
-          */
-        while (strlen($password) < $length) {
-            foreach ($chars as $k => $v) {
-                $random_char     = $v[rand(0, strlen($v) - 1)];
-                $random_position = rand(0, strlen($password) - 1);
-                $password        = substr($password, 0, $random_position)
-                                   . $random_char
-                                   . substr($password, $random_position);
-            }
+        // Randomize the order of character classes. This ensures for short
+        // passwords--less chars than classes--the character classes are
+        // still random.
+        shuffle($chars);
+
+        // Loop over each character class to ensure the generated password
+        // contains at least 1 character from each class.
+        foreach ($chars as $possibleChars) {
+            // Get a random character from the character class.
+            $randomCharIndex = $this->_rand(0, strlen($possibleChars) - 1);
+            $randomChar = $possibleChars[$randomCharIndex];
+
+            // Get a random insertion position in the current password
+            // value.
+            $randomPosition = rand(0, strlen($password) - 1);
+
+            // Insert the new character in the current password value.
+            $password = substr($password, 0, $randomPosition)
+                . $randomChar
+                . substr($password, $randomPosition);
         }
+
+        // Join all the character classes together to form the rest of the
+        // password value. This prevents small character classes from getting
+        // weighted unfairly in the final password.
+        $allPossibleChars = implode('', $chars);
+
+        // Insert random chars until the password is long enough.
+        while (strlen($password) < $length) {
+            // Get a random character from the possible characters.
+            $randomCharIndex = $this->_rand(0, strlen($allPossibleChars) - 1);
+            $randomChar = $allPossibleChars[$randomCharIndex];
+
+            // Get a random insertion position in the current password
+            // value.
+            $randomPosition = $this->_rand(0, strlen($password) - 1);
+
+            // Insert the new character in the current password value.
+            $password = substr($password, 0, $randomPosition)
+                . $randomChar
+                . substr($password, $randomPosition);
+        }
+
+        // Truncate the password if it is too long. This can happen when the
+        // desired length is shorter than the number of character classes.
         if (strlen($password) > $length) {
             $password = substr($password, 0, $length);
         }
 
-         /**
-          * Return password
-          */
-         return $password;
+        return $password;
+    }
+
+    /**
+     * Gets a random integer between min and max
+     *
+     * On PHP 7, this uses random_int(). On older systems it uses mt_rand().
+     *
+     * @param integer $min
+     * @param integer $max
+     *
+     * @return integer
+     */
+    protected function _rand($min, $max)
+    {
+        if (version_compare(PHP_VERSION, '7.0.0', 'ge')) {
+            $value = random_int($min, $max);
+        } else {
+            $value = mt_rand($min, $max);
+        }
+
+        return $value;
     }
 }
+
 ?>
