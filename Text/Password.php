@@ -459,7 +459,7 @@ class Text_Password {
         $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = $v_count + $c_count;
 
         for ($i = 0; $i < $length; $i++) {
-            $retVal .= $c[$this->_rand(0, $c_count-1)] . $v[$this->_rand(0, $v_count-1)];
+            $retVal .= $c[self::_rand(0, $c_count-1)] . $v[self::_rand(0, $v_count-1)];
         }
 
         return substr($retVal, 0, $length);
@@ -531,7 +531,7 @@ class Text_Password {
         // contains at least 1 character from each class.
         foreach ($chars as $possibleChars) {
             // Get a random character from the character class.
-            $randomCharIndex = $this->_rand(0, strlen($possibleChars) - 1);
+            $randomCharIndex = self::_rand(0, strlen($possibleChars) - 1);
             $randomChar = $possibleChars[$randomCharIndex];
 
             // Get a random insertion position in the current password
@@ -552,12 +552,12 @@ class Text_Password {
         // Insert random chars until the password is long enough.
         while (strlen($password) < $length) {
             // Get a random character from the possible characters.
-            $randomCharIndex = $this->_rand(0, strlen($allPossibleChars) - 1);
+            $randomCharIndex = self::_rand(0, strlen($allPossibleChars) - 1);
             $randomChar = $allPossibleChars[$randomCharIndex];
 
             // Get a random insertion position in the current password
             // value.
-            $randomPosition = $this->_rand(0, strlen($password) - 1);
+            $randomPosition = self::_rand(0, strlen($password) - 1);
 
             // Insert the new character in the current password value.
             $password = substr($password, 0, $randomPosition)
