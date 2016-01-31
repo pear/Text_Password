@@ -536,7 +536,7 @@ class Text_Password {
 
             // Get a random insertion position in the current password
             // value.
-            $randomPosition = rand(0, strlen($password) - 1);
+            $randomPosition = self::_rand(0, strlen($password) - 1);
 
             // Insert the new character in the current password value.
             $password = substr($password, 0, $randomPosition)
