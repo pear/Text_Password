@@ -86,7 +86,7 @@ pear install Text_Password
 
 ### Composer
 ```
-composer require pear/text_password
+./composer.phar require pear/text_password
 ```
 
 Links
