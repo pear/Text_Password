@@ -39,7 +39,7 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
         $password = $this->subject->create(15);
         $this->assertTrue(strlen($password) == 15);
     }
-    
+
     function testCreateMultiple()
     {
         $passwords = $this->subject->createMultiple(3);
@@ -49,7 +49,7 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
     function testCreateMultipleWithLength()
     {
         $passwords = $this->subject->createMultiple(3, 15);
-        $this->_testCreateMultiple($passwords, 3, 15);        
+        $this->_testCreateMultiple($passwords, 3, 15);
     }
 
     function testCreateNumericWithLength()
@@ -70,6 +70,28 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase {
         $password = $this->subject->create(8, 'unpronounceable', 'alphabetic');
 
         $this->assertRegExp("/^[a-z]{8}$/i", $password);
+    }
+
+    function testCreateUnpronouncableWithAllClasses()
+    {
+        $password = $this->subject->create(8, 'unpronounceable', '');
+        $this->assertRegExp('/^[a-z0-9_#@%&]{8}$/i', $password);
+
+        // Make sure all character classes are used at least once.
+        $this->assertRegExp('/[a-z]/', $password);
+        $this->assertRegExp('/[A-Z]/', $password);
+        $this->assertRegExp('/[0-9]/', $password);
+        $this->assertRegExp('/[_#@%&]/', $password);
+    }
+
+    /**
+     * Ensures short password generation, where the length is less than the
+     * number of character classes, works properly
+     */
+    function testCreateUnpronouncableShortWithAllClasses()
+    {
+        $password = $this->subject->create(2, 'unpronounceable', '');
+        $this->assertRegExp('/^[a-z0-9_#@%&]{2}$/i', $password);
     }
 
     // {{{ Test cases for creating passwords based on a given login string
