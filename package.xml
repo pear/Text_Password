@@ -9,7 +9,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <description>Text_Password allows one to create pronounceable and unpronounceable
 passwords. The full functional range is explained in the manual at
 http://pear.php.net/manual/.
-  
  </description>
  <lead>
   <name>Martin Jansen</name>
@@ -33,7 +32,7 @@ http://pear.php.net/manual/.
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.php.net/license">PHP License</license>
+ <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
  <notes>
  * Fixed issues with unpronouncable password generation
  * Updated to PHP 5 method syntax
