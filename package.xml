@@ -41,6 +41,8 @@ http://pear.php.net/manual/.
  </notes>
  <contents>
   <dir name="/">
+   <file name="LICENSE" role="doc" />
+   <file name="README.md" role="doc" />
    <dir name="tests">
     <file name="Text_Password_Test.php" role="test" />
    </dir> <!-- //tests -->
