@@ -22,10 +22,10 @@ http://pear.php.net/manual/.
   <email>olivier@php.net</email>
   <active>yes</active>
  </lead>
- <date>2016-02-01</date>
- <time>14:42:00</time>
+ <date>2016-02-26</date>
+ <time>19:51:00</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -34,6 +34,10 @@ http://pear.php.net/manual/.
  </stability>
  <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
  <notes>
+1.2.1 Notes:
+ * Fixed packaging issue with PEAR package
+
+1.2.0 Notes:
  * Fixed issues with unpronouncable password generation
  * Updated to PHP 5 method syntax
  * Improved tests
@@ -45,7 +49,7 @@ http://pear.php.net/manual/.
     <file name="Text_Password_Test.php" role="test" />
    </dir> <!-- //tests -->
    <dir name="Text">
-    <file baseinstalldir="Text" name="Password.php" role="php" />
+    <file name="Password.php" role="php" />
    </dir> <!-- /Text -->
   </dir> <!-- / -->
  </contents>
@@ -61,6 +65,25 @@ http://pear.php.net/manual/.
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <date>2016-02-01</date>
+   <time>14:42:00</time>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
+   <notes>
+ * Fixed issues with unpronouncable password generation
+ * Updated to PHP 5 method syntax
+ * Improved tests
+ * Composer support
+   </notes>
+  </release>
   <release>
    <date>2008-11-30</date>
    <time>14:39:10</time>
