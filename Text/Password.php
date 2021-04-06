@@ -431,7 +431,7 @@ class Text_Password
 
         shuffle($tmp);
 
-        return implode($tmp, '');
+        return implode('', $tmp);
     }
 
     /**
