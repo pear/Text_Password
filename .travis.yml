@@ -1,7 +1,7 @@
 language: php
 install:
-  - pear install package.xml
+  - composer install
 php:
-  - 5.4
+  - 7.3
 sudo: false
 script: phpunit tests/

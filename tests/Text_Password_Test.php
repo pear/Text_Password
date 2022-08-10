@@ -45,7 +45,7 @@ require_once 'Text/Password.php';
  * @extends PHPUnit_TestCase
  * @version $Id$
  */
-class Text_Password_Test extends PHPUnit_Framework_TestCase
+class Text_Password_Test extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -75,32 +75,32 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase
     {
         $password = Text_Password::create(8, 'unpronounceable', 'numeric');
 
-        $this->assertRegExp("/^[0-9]{8}$/", $password);
+        $this->assertMatchesRegularExpression("/^[0-9]{8}$/", $password);
     }
 
     public function testCreateFromABCWithLength()
     {
         $password = Text_Password::create(8, 'unpronounceable', 'a,b,c');
-        $this->assertRegExp("/^[abc]{8}$/i", $password);
+        $this->assertMatchesRegularExpression("/^[abc]{8}$/i", $password);
     }
 
     public function testCreateAlphabeticWithLength()
     {
         $password = Text_Password::create(8, 'unpronounceable', 'alphabetic');
 
-        $this->assertRegExp("/^[a-z]{8}$/i", $password);
+        $this->assertMatchesRegularExpression("/^[a-z]{8}$/i", $password);
     }
 
     public function testCreateUnpronouncableWithAllClasses()
     {
         $password = Text_Password::create(8, 'unpronounceable', '');
-        $this->assertRegExp('/^[a-z0-9_#@%&]{8}$/i', $password);
+        $this->assertMatchesRegularExpression('/^[a-z0-9_#@%&]{8}$/i', $password);
 
         // Make sure all character classes are used at least once.
-        $this->assertRegExp('/[a-z]/', $password);
-        $this->assertRegExp('/[A-Z]/', $password);
-        $this->assertRegExp('/[0-9]/', $password);
-        $this->assertRegExp('/[_#@%&]/', $password);
+        $this->assertMatchesRegularExpression('/[a-z]/', $password);
+        $this->assertMatchesRegularExpression('/[A-Z]/', $password);
+        $this->assertMatchesRegularExpression('/[0-9]/', $password);
+        $this->assertMatchesRegularExpression('/[_#@%&]/', $password);
     }
 
     /**
@@ -110,7 +110,7 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase
     public function testCreateUnpronouncableShortWithAllClasses()
     {
         $password = Text_Password::create(2, 'unpronounceable', '');
-        $this->assertRegExp('/^[a-z0-9_#@%&]{2}$/i', $password);
+        $this->assertMatchesRegularExpression('/^[a-z0-9_#@%&]{2}$/i', $password);
     }
 
     // {{{ Test cases for creating passwords based on a given login string
@@ -186,7 +186,7 @@ class Text_Password_Test extends PHPUnit_Framework_TestCase
 
     protected function _testCreateMultiple($passwords, $count, $length)
     {
-        $this->assertInternalType("array", $passwords);
+        $this->assertIsArray($passwords);
         $this->assertTrue(count($passwords) == $count);
 
         foreach ($passwords as $password) {
