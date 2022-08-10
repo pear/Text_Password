@@ -22,10 +22,10 @@ http://pear.php.net/manual/.
   <email>olivier@php.net</email>
   <active>yes</active>
  </lead>
- <date>2016-02-26</date>
- <time>19:51:00</time>
+ <date>2022-08-26</date>
+ <time>10:00:00</time>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -34,6 +34,9 @@ http://pear.php.net/manual/.
  </stability>
  <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
  <notes>
+1.2.2 Notes:
+ * Allow PHPUnit tests to run with newer PHPUnit and PHP versions
+
 1.2.1 Notes:
  * Fixed packaging issue with PEAR package
 
@@ -67,6 +70,22 @@ http://pear.php.net/manual/.
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <date>2016-02-26</date>
+   <time>19:51:00</time>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
+   <notes>
+ * Fixed packaging issue with PEAR package
+   </notes>
+  </release>
   <release>
    <date>2016-02-01</date>
    <time>14:42:00</time>
